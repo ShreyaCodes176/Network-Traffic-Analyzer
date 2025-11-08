@@ -4,12 +4,12 @@ import geoip2.database  # translate IP addresses to geographical locations
 import ipaddress
 
 #Load GeoLite2 database
-gi = geoip2.database.Reader(r'D:\GeoLite2-City.mmdb')
+gi = geoip2.database.Reader(r'D:\GeoLite2-City.mmdb') #put the location of your folder where the databse resides
 try:
     my_ip = socket.gethostbyname(socket.gethostname())
 except Exception:
-    my_ip = "192.168.18.84"  # fallback
-print(f"my ip is:{my_ip}")
+    my_ip = "192.168.xx.xx" # fallback, put your ip address manually
+    
 #Store missing IPs globally to report at end
 missing_ips = []
 def get_geo(ip):
@@ -90,7 +90,6 @@ def plotIPs(pcap):
             srcip = socket.inet_ntoa(ip.src)
             dstip = socket.inet_ntoa(ip.dst)
 
-            #print(srcip, "->", dstip)
             if ipaddress.ip_address(srcip).is_private and ipaddress.ip_address(dstip).is_private:
                 continue  # skip local/private IPs
 
@@ -153,3 +152,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
